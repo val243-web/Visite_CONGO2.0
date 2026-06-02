@@ -1,4 +1,4 @@
-export const listeParcsRDC = [
+const listeParcsRDC = [
   {
     id: 1,
     nom: "Parc National des Virunga",
@@ -136,3 +136,4 @@ export const listeParcsRDC = [
   }
 ];
 
+module.exports = { listeParcsRDC };

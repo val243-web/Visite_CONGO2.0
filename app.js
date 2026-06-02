@@ -16,8 +16,12 @@ app.get("/apropos", (req, res) => {
 });
 
 app.get("/parcs", (req, res) => {
-  res.render("parcs", { pageTitle: "parcs"});
+  res.render("parcs", { pageTitle: "parcs", listeParcsRDC });
 });
 
 
-app.listen(port, () => console.log(`http://localhost:${port}`));
+if (require.main === module) {
+  app.listen(port, () => console.log(`http://localhost:${port}`));
+}
+
+module.exports = app;

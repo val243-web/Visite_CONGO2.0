@@ -1,63 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); 
+
+:root {
+    --font-main: 'Poppins', sans-serif;
+    --color-dark: #000000;
+    --color-dark-hover: #111111;
+    --color-light: #ffffff;
+    --color-shadow: rgba(48, 48, 48, 0.644);
+    --color-hero-overlay: #4b4b4b7a;
+    --radius-sm: 3px;
+    --radius-md: 5px;
+    --radius-lg: 10px;
+    --transition-base: 0.5s;
+    --space-sm: 5px;
+    --space-md: 10px;
+    --space-lg: 20px;
+}
+
 * {
      box-sizing: border-box;
      margin: 0;
      padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-main);
 }
 
 /* The style of the header, nav-bar and the logo*/
 
 header {
-    background-color: #ffffff;
-    color: #000000;
-    padding: 5px 20px;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: var(--space-sm) var(--space-lg);
     text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 5px rgba(48, 48, 48, 0.644);
-    transition: 0.5s;
+    box-shadow: 0 0 var(--space-sm) var(--color-shadow);
+    transition: var(--transition-base);
     position: sticky;
     top: 1px;
+    z-index: 10;
 }
 
 .logo {
     text-decoration: none;
     font-size: 2rem;
     font-weight: bold;
-    background-color: black;
-    color: white;
-    border-radius: 5px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    border-radius: var(--radius-md);
     padding-left: 1rem;
-    transition : 0.5s;
+    transition : var(--transition-base);
     cursor : pointer;
 }
 .logo span {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--color-light);
+    color: var(--color-dark);
     width: 100%;
-    padding: 3px 5px;
+    padding: var(--radius-sm) var(--space-sm);
     text-transform: uppercase;
 }
 
 .logo:hover {
-    background-color: white;
-    color: #000000;
+    background-color: var(--color-light);
+    color: var(--color-dark);
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: var(--space-lg);
 }
 
 nav ul li a {
     text-decoration: none;
-    color:#000000;
+    color: var(--color-dark);
     font-size: 1rem;
     text-transform: capitalize;
-    transition: 0.5s;
+    transition: var(--transition-base);
 }
 
 nav ul li a:hover {
@@ -66,17 +84,17 @@ nav ul li a:hover {
 }
 
 .contact {
-    background-color: #000000;
+    background-color: var(--color-dark);
     padding: 5px 1rem;
-    border-radius: 5px;
-    color: #ffffff;
+    border-radius: var(--radius-md);
+    color: var(--color-light);
 }
 
 /* The style of the home page and his main section */
 
 .hero {
-    margin: 10px 5%;
-    border-radius: 10px;
+    margin: var(--space-md) 5%;
+    border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,8 +112,8 @@ nav ul li a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #4b4b4b7a;
-    border-radius: 10px;
+    background: var(--color-hero-overlay);
+    border-radius: var(--radius-lg);
     padding: 0 1%;
     gap: 3rem;
 }
@@ -123,27 +141,29 @@ nav ul li a:hover {
 
 /* btn class general color for all thing who have that class */
 .btn {
-    background-color: #000000;
+    background-color: var(--color-dark);
     padding: 4px 1rem;
-    color: #ffffff;
-    font-family: 'Poppins', 'sans serif';
+    color: var(--color-light);
+    font-family: var(--font-main);
     font-size: 1rem;
     border: none;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     text-transform: capitalize;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.hero-btn button:hover {
-    background-color: #111111;
+.btn:hover {
+    background-color: var(--color-dark-hover);
 }
 
 
 /* Footer style section for all pages  */
 
 footer {
-    background-color: #000000;
-    color: #ffffff;
-    padding: 10px;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: var(--space-md);
     display: flex;
     align-items: center;
     justify-content: center;
