@@ -33,8 +33,8 @@ function createContactTransporter() {
       user: mailUser,
       pass: mailPass.replace(/\s/g, ""),
     },
-    connectionTimeout: 5000,
-    socketTimeout: 5000,
+    connectionTimeout: 30000,
+    socketTimeout: 30000,
   });
 }
 
