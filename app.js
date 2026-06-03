@@ -153,6 +153,9 @@ app.post("/contact/envoyer", async (req, res) => {
     const safeSujet = escapeHtml(sujet);
     const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
+    await transporter.verify();
+    console.log("SMTP connecté");
+
     const info = await transporter.sendMail({
       from: `"${nom} via Visite Congo" <${process.env.MAIL_USER}>`,
       to: receiver,
