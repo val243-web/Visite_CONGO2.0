@@ -3,8 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const nodemailer = require("nodemailer");
 const { listeParcsRDC } = require("./public/parcsData.js");
+const dns = require("dns");
 
 loadLocalEnv();
+dns.setDefaultResultOrder("ipv4first");
 
 const app = express();
 const port = process.env.PORT || 3000;
