@@ -28,6 +28,10 @@ function createContactTransporter() {
   // Gmail affiche parfois le mot de passe d'application avec des espaces.
   // Nodemailer reçoit ici la version nettoyée pour éviter les erreurs SMTP.
   return nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    family: 4,
     service: "gmail",
     auth: {
       user: mailUser,
