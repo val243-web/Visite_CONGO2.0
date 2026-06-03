@@ -1,0 +1,92 @@
+<%- include("partials/header.ejs") %>
+<main>
+  <section class="contact-page">
+    <div class="contact-shell">
+      <aside class="contact-info-panel">
+        <div class="contact-badge">VC</div>
+        <h1>Visite Congo</h1>
+        <p>Nous sommes disponibles pour vos questions, suggestions et demandes de visite.</p>
+
+        <ul class="contact-details">
+          <li>
+            <span class="contact-icon">@</span>
+            <a href="mailto:valeryiraginsh@gmail.com">valeryiraginsh@gmail.com</a>
+          </li>
+          <li>
+            <span class="contact-icon">+</span>
+            <a href="tel:+243000000000">+243 000 000 000</a>
+          </li>
+          <li>
+            <span class="contact-icon">*</span>
+            <span>Kinshasa, RDC</span>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="contact-form-panel" aria-labelledby="contact-title">
+        <h2 id="contact-title">Contactez-nous</h2>
+        <p>Faites partie de l'aventure. Envoyez-nous un message.</p>
+
+        <% if (status) { %>
+          <p class="form-alert <%= status.type === 'success' ? 'form-alert-success' : 'form-alert-error' %>">
+            <%= status.message %>
+          </p>
+        <% } %>
+
+        <form class="contact-form" action="/contact/envoyer" method="post">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Votre nom complet</label>
+              <input
+                id="nom"
+                name="nom"
+                type="text"
+                placeholder="Jean-Luc Kabeya"
+                value="<%= formData.nom || '' %>"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Votre email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="jeanluc.kabeya@gmail.com"
+                value="<%= formData.email || '' %>"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sujet">Sujet de votre message</label>
+            <input
+              id="sujet"
+              name="sujet"
+              type="text"
+              placeholder="Réservation Safari Parc Garamba"
+              value="<%= formData.sujet || '' %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Votre message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Bonjour, je souhaite avoir plus d'informations..."
+              required
+            ><%= formData.message || '' %></textarea>
+          </div>
+
+          <button class="btn contact-submit" type="submit">Envoyer mon message</button>
+        </form>
+      </section>
+    </div>
+  </section>
+</main>
+<%- include("partials/footer.ejs") %>
