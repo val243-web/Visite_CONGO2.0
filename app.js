@@ -31,6 +31,8 @@ function createContactTransporter() {
       user: mailUser,
       pass: mailPass.replace(/\s/g, ""),
     },
+    connectionTimeout: 5000,
+    socketTimeout: 5000,
   });
 }
 
@@ -125,6 +127,9 @@ app.post("/contact/envoyer", async (req, res) => {
   // Sans ces variables dans .env, le serveur ne sait pas quel compte Gmail utiliser.
   if (!transporter || !receiver) {
     console.error("Configuration email manquante: MAIL_USER, MAIL_PASS ou CONTACT_TO.");
+    console.error("MAIL_USER:", process.env.MAIL_USER ? "✓ défini" : "✗ manquant");
+    console.error("MAIL_PASS:", process.env.MAIL_PASS ? "✓ défini" : "✗ manquant");
+    console.error("CONTACT_TO:", process.env.CONTACT_TO ? "✓ défini" : "✗ manquant");
     return renderContactPage(res, {
       formData,
       status: {
@@ -135,13 +140,18 @@ app.post("/contact/envoyer", async (req, res) => {
   }
 
   try {
+    console.log("📧 Tentative d'envoi d'email...");
+    console.log("De:", process.env.MAIL_USER);
+    console.log("À:", receiver);
+    console.log("Sujet:", sujet);
+
     // Les valeurs utilisateur sont échappées avant d'entrer dans le HTML du mail.
     const safeNom = escapeHtml(nom);
     const safeEmail = escapeHtml(email);
     const safeSujet = escapeHtml(sujet);
     const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"${nom} via Visite Congo" <${process.env.MAIL_USER}>`,
       to: receiver,
       replyTo: email,
@@ -164,6 +174,9 @@ app.post("/contact/envoyer", async (req, res) => {
       `,
     });
 
+    console.log("✅ Email envoyé avec succès!");
+    console.log("Response ID:", info.response);
+
     return renderContactPage(res, {
       status: {
         type: "success",
@@ -171,7 +184,13 @@ app.post("/contact/envoyer", async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Erreur lors de l'envoi de l'email:", error);
+    console.error("❌ Erreur lors de l'envoi de l'email:");
+    console.error("Code:", error.code);
+    console.error("Message:", error.message);
+    console.error("Commande SMTP:", error.command);
+    console.error("Response:", error.response);
+    console.error("Stack:", error.stack);
+
     return renderContactPage(res, {
       formData,
       status: {
