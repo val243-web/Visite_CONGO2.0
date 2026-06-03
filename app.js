@@ -1,8 +1,8 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const { listeParcsRDC } = require("./public/parcsModule.js");
 const nodemailer = require("nodemailer");
+const { listeParcsRDC } = require("./public/parcsData.js");
 
 loadLocalEnv();
 

@@ -1,11 +1,77 @@
 <%- include('partials/header') %>
-    <main>
-        <div class="sidebar">
-            <h2>Parcs & reserves</h2>
-        </div>
+<main>
+  <section class="parks-page">
+    <div class="parks-heading">
+      <p>Patrimoine naturel de la RDC</p>
+      <h1>Parcs et réserves nationaux</h1>
+    </div>
 
-        <section class="parcs">
-            
-        </section> 
-    </main>
+    <section class="parks-grid" aria-label="Liste des parcs et réserves">
+      <% listeParcsRDC.forEach((parc) => { %>
+        <article class="park-card">
+          <img
+            src="<%= parc.imageUrl %>"
+            alt="<%= parc.nom %>"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='/bgAccueil.jpg';"
+          />
+
+          <div class="park-card-body">
+            <p class="park-region"><%= parc.region %></p>
+            <h2><%= parc.nom %></h2>
+
+            <div class="park-card-footer">
+              <span><%= parc.superficie %></span>
+              <button class="btn park-more-btn" type="button" data-park-id="<%= parc.id %>">
+                Voir plus
+              </button>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </section>
+  </section>
+
+  <dialog class="park-dialog" id="park-dialog">
+    <button class="park-dialog-close" type="button" aria-label="Fermer la fenêtre">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="park-dialog-content">
+      <img class="park-dialog-image" src="" alt="" />
+      <div class="park-dialog-body">
+        <p class="park-dialog-region"></p>
+        <h2></h2>
+        <p class="park-dialog-description"></p>
+
+        <dl class="park-facts">
+          <div>
+            <dt>Superficie</dt>
+            <dd data-field="superficie"></dd>
+          </div>
+          <div>
+            <dt>Création</dt>
+            <dd data-field="creation"></dd>
+          </div>
+          <div>
+            <dt>Statut</dt>
+            <dd data-field="status"></dd>
+          </div>
+          <div>
+            <dt>Faune</dt>
+            <dd data-field="faune"></dd>
+          </div>
+          <div>
+            <dt>Flore</dt>
+            <dd data-field="flore"></dd>
+          </div>
+        </dl>
+
+        <p class="park-dialog-note"></p>
+        <a class="park-source-link" href="#" target="_blank" rel="noreferrer">Voir la source de l'image</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script id="parcs-data" type="application/json"><%- JSON.stringify(listeParcsRDC).replace(/</g, "\\u003c") %></script>
+</main>
 <%- include('partials/footer') %>
