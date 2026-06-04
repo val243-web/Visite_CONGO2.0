@@ -29,8 +29,8 @@ function createContactTransporter() {
   console.log("MAIL_USER =", mailUser);
   return nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
-    port: 587,
-    secure: false,
+port: 465,
+secure: true,
     auth: {
       user: mailUser,
       pass: mailPass,
