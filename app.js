@@ -26,6 +26,7 @@ function createContactTransporter() {
     return null;
   }
 
+  console.log("MAIL_USER =", mailUser);
   return nodemailer.createTransport({
     host: "smtp-relay.brevo.com",
     port: 587,
@@ -154,6 +155,13 @@ app.post("/contact/envoyer", async (req, res) => {
 
     await transporter.verify();
     console.log("SMTP connecté");
+
+    try {
+  await transporter.verify();
+  console.log("SMTP connecté");
+} catch (err) {
+  console.error("VERIFY ERROR:", err);
+}
 
     const info = await transporter.sendMail({
       from: `"${nom} via Visite Congo" <${process.env.MAIL_USER}>`,
