@@ -19,28 +19,21 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 function createContactTransporter() {
-  loadLocalEnv();
-
-  const mailUser = process.env.MAIL_USER && process.env.MAIL_USER.trim();
-  const mailPass = process.env.MAIL_PASS && process.env.MAIL_PASS.trim();
+  const mailUser = process.env.MAIL_USER?.trim();
+  const mailPass = process.env.MAIL_PASS?.trim();
 
   if (!mailUser || !mailPass) {
     return null;
   }
 
-  // Gmail affiche parfois le mot de passe d'application avec des espaces.
-  // Nodemailer reçoit ici la version nettoyée pour éviter les erreurs SMTP.
   return nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "smtp-relay.brevo.com",
     port: 587,
     secure: false,
-    family: 4,
     auth: {
       user: mailUser,
-      pass: mailPass.replace(/\s/g, ""),
+      pass: mailPass,
     },
-    connectionTimeout: 30000,
-    socketTimeout: 30000,
   });
 }
 
