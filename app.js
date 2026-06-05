@@ -1,15 +1,8 @@
 const express = require("express");
-const fs = require("fs");
 const path = require("path");
-const nodemailer = require("nodemailer");
+// 1. On remplace Nodemailer par le SDK officiel de Brevo (plus rapide sur Vercel)
+const sibApiV3Sdk = require("@getbrevo/brevo");
 const { listeParcsRDC } = require("./public/parcsData.js");
-const dns = require("dns");
-dns.setDefaultResultOrder("ipv4first");
-
-console.log("DNS order:", dns.getDefaultResultOrder?.());
-
-loadLocalEnv();
-
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,56 +11,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 
-function createContactTransporter() {
-  const mailUser = process.env.MAIL_USER?.trim();
-  const mailPass = process.env.MAIL_PASS?.trim();
-
-  if (!mailUser || !mailPass) {
-    return null;
-  }
-
-  console.log("MAIL_USER =", mailUser);
-  return nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
-port: 465,
-secure: true,
-    auth: {
-      user: mailUser,
-      pass: mailPass,
-    },
-  });
-}
-
-function loadLocalEnv() {
-  const envPath = path.join(__dirname, ".env");
-
-  if (!fs.existsSync(envPath)) {
-    return;
-  }
-
-  const envContent = fs.readFileSync(envPath, "utf8");
-
-  envContent.split(/\r?\n/).forEach((line) => {
-    const trimmedLine = line.trim();
-
-    if (!trimmedLine || trimmedLine.startsWith("#")) {
-      return;
-    }
-
-    const separatorIndex = trimmedLine.indexOf("=");
-
-    if (separatorIndex === -1) {
-      return;
-    }
-
-    const key = trimmedLine.slice(0, separatorIndex).trim();
-    const value = trimmedLine.slice(separatorIndex + 1).trim().replace(/^["']|["']$/g, "");
-
-    if (key && process.env[key] === undefined) {
-      process.env[key] = value;
-    }
-  });
-}
+// 2. Configuration du client Brevo via API Key
+let apiInstance = new sibApiV3Sdk.TransactionalEmailsApi();
+let apiKey = apiInstance.authentications['apiKey'];
+// Ta clé d'API Brevo doit être stockée dans l'interface de Vercel
+apiKey.apiKey = process.env.BREVO_API_KEY; 
 
 function escapeHtml(value) {
   return String(value)
@@ -75,7 +23,7 @@ function escapeHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/'/g, "'");
 }
 
 function renderContactPage(res, options = {}) {
@@ -86,129 +34,70 @@ function renderContactPage(res, options = {}) {
   });
 }
 
-function getContactReceiver() {
-  loadLocalEnv();
-
-  return process.env.CONTACT_TO && process.env.CONTACT_TO.trim();
-}
-
-app.get("/", (req, res) => {
-  res.render("accueil", { pageTitle: "accueil" });
-});
-
-app.get("/apropos", (req, res) => {
-  res.render("apropos", { pageTitle: "apropos" });
-});
-
-app.get("/parcs", (req, res) => {
-  res.render("parcs", { pageTitle: "parcs", listeParcsRDC });
-});
-
-app.get("/contacts", (req, res) => {
-  renderContactPage(res);
-});
+app.get("/", (req, res) => { res.render("accueil", { pageTitle: "accueil" }); });
+app.get("/apropos", (req, res) => { res.render("apropos", { pageTitle: "apropos" }); });
+app.get("/parcs", (req, res) => { res.render("parcs", { pageTitle: "parcs", listeParcsRDC }); });
+app.get("/contacts", (req, res) => { renderContactPage(res); });
 
 app.post("/contact/envoyer", async (req, res) => {
   const { nom, email, sujet, message } = req.body;
   const formData = { nom, email, sujet, message };
 
-  // On vérifie les champs côté serveur, même si le navigateur les demande déjà.
   if (!nom || !email || !sujet || !message) {
     return renderContactPage(res, {
       formData,
-      status: {
-        type: "error",
-        message: "Merci de remplir tous les champs du formulaire.",
-      },
+      status: { type: "error", message: "Merci de remplir tous les champs du formulaire." },
     });
   }
 
-  const transporter = createContactTransporter();
-  const receiver = getContactReceiver();
-
-  // Sans ces variables dans .env, le serveur ne sait pas quel compte Gmail utiliser.
-  if (!transporter || !receiver) {
-    console.error("Configuration email manquante: MAIL_USER, MAIL_PASS ou CONTACT_TO.");
-    console.error("MAIL_USER:", process.env.MAIL_USER ? "✓ défini" : "✗ manquant");
-    console.error("MAIL_PASS:", process.env.MAIL_PASS ? "✓ défini" : "✗ manquant");
-    console.error("CONTACT_TO:", process.env.CONTACT_TO ? "✓ défini" : "✗ manquant");
+  // Vérification de la clé d'API et de l'email de réception sur Vercel
+  if (!process.env.BREVO_API_KEY || !process.env.CONTACT_TO || !process.env.SENDER_EMAIL) {
+    console.error("Configuration manquante dans les variables d'environnement Vercel.");
     return renderContactPage(res, {
       formData,
-      status: {
-        type: "error",
-        message: "Le formulaire est prêt, mais l'adresse email du site n'est pas encore configurée.",
-      },
+      status: { type: "error", message: "Le service d'envoi est en cours de maintenance." },
     });
   }
 
   try {
-    console.log("📧 Tentative d'envoi d'email...");
-    console.log("De:", process.env.MAIL_USER);
-    console.log("À:", receiver);
-    console.log("Sujet:", sujet);
+    console.log("📧 Envoi du message via l'API Brevo...");
 
-    // Les valeurs utilisateur sont échappées avant d'entrer dans le HTML du mail.
     const safeNom = escapeHtml(nom);
     const safeEmail = escapeHtml(email);
     const safeSujet = escapeHtml(sujet);
     const safeMessage = escapeHtml(message).replace(/\n/g, "<br>");
 
-    await transporter.verify();
-    console.log("SMTP connecté");
+    // Structure requise par l'API Brevo
+    let sendSmtpEmail = new sibApiV3Sdk.SendSmtpEmail();
+    
+    // IMPORTANT : SENDER_EMAIL doit être l'email vérifié dans ton compte Brevo
+    sendSmtpEmail.sender = { "name": "Visite Congo", "email": process.env.SENDER_EMAIL };
+    sendSmtpEmail.to = [{ "email": process.env.CONTACT_TO.trim() }];
+    sendSmtpEmail.replyTo = { "email": email, "name": nom };
+    sendSmtpEmail.subject = `Nouveau message de contact : ${sujet}`;
+    
+    sendSmtpEmail.htmlContent = `
+      <h2>Nouveau message depuis Visite Congo</h2>
+      <p><strong>Nom :</strong> ${safeNom}</p>
+      <p><strong>Email du visiteur :</strong> ${safeEmail}</p>
+      <p><strong>Sujet :</strong> ${safeSujet}</p>
+      <p><strong>Message :</strong></p>
+      <p>${safeMessage}</p>
+    `;
 
-    try {
-  await transporter.verify();
-  console.log("SMTP connecté");
-} catch (err) {
-  console.error("VERIFY ERROR:", err);
-}
-
-    const info = await transporter.sendMail({
-      from: `"${nom} via Visite Congo" <${process.env.MAIL_USER}>`,
-      to: receiver,
-      replyTo: email,
-      subject: `Nouveau message de contact: ${sujet}`,
-      text: [
-        `Nom: ${nom}`,
-        `Email: ${email}`,
-        `Sujet: ${sujet}`,
-        "",
-        "Message:",
-        message,
-      ].join("\n"),
-      html: `
-        <h2>Nouveau message depuis Visite Congo</h2>
-        <p><strong>Nom :</strong> ${safeNom}</p>
-        <p><strong>Email :</strong> ${safeEmail}</p>
-        <p><strong>Sujet :</strong> ${safeSujet}</p>
-        <p><strong>Message :</strong></p>
-        <p>${safeMessage}</p>
-      `,
-    });
-
-    console.log("✅ Email envoyé avec succès!");
-    console.log("Response ID:", info.response);
+    // Envoi via HTTP
+    await apiInstance.sendTransacEmail(sendSmtpEmail);
+    console.log("✅ Email envoyé avec succès via API !");
 
     return renderContactPage(res, {
-      status: {
-        type: "success",
-        message: "Votre message a bien été envoyé. Merci de nous avoir contactés.",
-      },
+      status: { type: "success", message: "Votre message a bien été envoyé. Merci de nous avoir contactés." },
     });
-  } catch (error) {
-    console.error("❌ Erreur lors de l'envoi de l'email:");
-    console.error("Code:", error.code);
-    console.error("Message:", error.message);
-    console.error("Commande SMTP:", error.command);
-    console.error("Response:", error.response);
-    console.error("Stack:", error.stack);
 
+  } catch (error) {
+    console.error("❌ Erreur API Brevo :", error);
     return renderContactPage(res, {
       formData,
-      status: {
-        type: "error",
-        message: "Impossible d'envoyer le message pour le moment. Veuillez réessayer plus tard.",
-      },
+      status: { type: "error", message: "Impossible d'envoyer le message. Veuillez réessayer plus tard." },
     });
   }
 });
