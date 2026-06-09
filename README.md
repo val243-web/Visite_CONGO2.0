@@ -1,4 +1,6 @@
-<h1>Visite CONGO</h1>
+<center> 
+  <h1>Visite CONGO</h1>
+</center>
 
 <h4>Projet de fin de la prép info à l'université catholique de bukavu (UCB) </h4>
 <hr>
@@ -10,7 +12,7 @@ Ici tous les neufs parcs congolais y sont représenter et chacun avec ces inforl
 
 <p>Crédits :</p>
 <ul>
-  <li>Val(moi)</li>
+  <li>Valéry IRAGI(moi)</li>
   <li>ISHARA ZIHALIRWA Glodi</li>
   <li>IRAGI NGOMBWA Baudouin</li>
   <li>IRAGI MULUMEODERHWA Blaise</li>
