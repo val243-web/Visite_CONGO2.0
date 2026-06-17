@@ -122,7 +122,7 @@ nav ul li a:hover {
     justify-content: center;
     height: 90vh;
     text-align: center;
-    background-image: url(bgAccueil.jpg);
+    background-image: radial-gradient(rgba(146, 146, 146, 0.404), rgba(68, 82, 52, 0.664)),url(virunga.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -586,6 +586,7 @@ footer {
     justify-content: center;
     gap: 2rem;
     margin: var(--space-md) 5%;
+    margin-top: 2rem;
 }
 
 .apropos-container .apropos-image {
@@ -789,7 +790,8 @@ footer {
         margin-bottom: 0;
         width: 100%;
         /* margin-top: auto; */
-        font-size: 1rem;
+        font-size: 0.8rem;
+        text-align: center;
     }
 }
 
@@ -821,6 +823,6 @@ footer {
     }
 
     .galerieimages {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: 1fr;
     }
 }
