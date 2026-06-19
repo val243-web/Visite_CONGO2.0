@@ -1,6 +1,4 @@
-<center> 
   <h1>Visite CONGO</h1>
-</center>
 
 <h4>Projet de fin de la prép info à l'université catholique de bukavu (UCB) </h4>
 <hr>
