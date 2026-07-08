@@ -23,8 +23,7 @@ Outils utilisé : VS Code, Copilot CLI, Codex, Chrome(pour recherches et navigat
 Lancer le projet avec :
 
 ```bash
-npm install express ejs nodemailer
-npm run start
-
+npm install
+npm run start || npm run dev
 ```
 
