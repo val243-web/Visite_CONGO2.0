@@ -1,16 +1,17 @@
+// Recupere l'emplacement de l'annee dans le footer.
 const date = document.querySelector(".date")
 
-
-// Déclaration de la variable et affectation de la date dans la variable date 
+// Affiche automatiquement l'annee actuelle si le footer est present.
 let dateActuelle = new Date
 if (date) {
   date.innerHTML = dateActuelle.getFullYear()
 }
 
-// Le script pour une nav bar responsive
+// Elements du menu responsive.
 const hamburger = document.querySelector(".humbergur")
 const navMenu = document.querySelector("nav ul")
 
+// Ouvre ou ferme le menu mobile au clic sur l'icone hamburger.
 if (hamburger && navMenu) {
   hamburger.addEventListener("click", () => {
     hamburger.querySelector(".fa-bars").style.display = "none"
@@ -23,11 +24,16 @@ if (hamburger && navMenu) {
 
   })
 }
+
+// Donnees et boite de dialogue utilisees sur la page des parcs.
 const parcsDataElement = document.querySelector("#parcs-data")
 const parkDialog = document.querySelector("#park-dialog")
 
 if (parcsDataElement && parkDialog) {
+  // Parse les donnees JSON injectees dans la page EJS.
   const parcs = JSON.parse(parcsDataElement.textContent)
+
+  // Recupere tous les champs qui seront remplis dans la modale.
   const closeButton = parkDialog.querySelector(".park-dialog-close")
   const dialogImage = parkDialog.querySelector(".park-dialog-image")
   const dialogRegion = parkDialog.querySelector(".park-dialog-region")
@@ -36,6 +42,7 @@ if (parcsDataElement && parkDialog) {
   const dialogNote = parkDialog.querySelector(".park-dialog-note")
   const sourceLink = parkDialog.querySelector(".park-source-link")
 
+  // Chaque bouton "voir plus" ouvre la modale avec les informations du parc choisi.
   document.querySelectorAll(".park-more-btn").forEach((button) => {
     button.addEventListener("click", () => {
       const parc = parcs.find((item) => item.id === Number(button.dataset.parkId))
@@ -62,8 +69,10 @@ if (parcsDataElement && parkDialog) {
     })
   })
 
+  // Ferme la modale avec le bouton de fermeture.
   closeButton.addEventListener("click", () => parkDialog.close())
 
+  // Ferme aussi la modale quand on clique sur le fond sombre.
   parkDialog.addEventListener("click", (event) => {
     if (event.target === parkDialog) {
       parkDialog.close()

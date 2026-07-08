@@ -132,6 +132,11 @@ app.post("/contact/envoyer", async (req, res) => {
   }
 });
 
+//R oute pour gérer les erreurs 404 (page non trouvée)
+app.use((req, res) => {
+  res.status(404).render("pageErreur", { pageTitle: "Page non trouvée" });
+});
+
 // Lancement du serveur en local uniquement
 if (require.main === module) {
   app.listen(port, () => console.log(`Serveur démarré sur : http://localhost:${port}`));
