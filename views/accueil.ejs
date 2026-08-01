@@ -1,31 +1,121 @@
 <%- include('partials/header') %>
-    <main>
-        <section class="hero">
-            <div class="hero-container">
-                <div class="hero-container-text">
-                    <h1 class="big-title">Bienvenue sur la page Visite CONGO</h1>
-
-                    <p>Sur cette page vous allez visiter de là où vous etes notre 
-                        beau pays la Republique démocratique du congo et 
-                        l'etendue de sa biodiversité.
-                    </p>
-
-                    <p>
-                        La République Démocratique du Congo abrite l'une des
-                        biodiversités les plus riches de la planète : plus de
-                        10 000 espèces végétales, 480 espèces de mammifères,
-                        1 086 espèces d'oiseaux, et des animaux endémiques
-                        introuvables nulle part ailleurs sur Terre — le bonobo,
-                        l'okapi, le gorille des plaines de l'est.
-                        Découvrez ce patrimoine naturel exceptionnel.
-                    </p>
-                </div>
-
-                <div class="hero-btn">
-                    <a href="/apropos" class="btn accueil-btn">En savoir plus sur nous</a>
-                    <a href="/parcs" class="btn accueil-btn">Visitez</a>
-                </div>
+<main>
+    <!-- Section Hero Révisée -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-container-text">
+                <h1 class="big-title">Bienvenue sur Visite CONGO</h1>
+                <p>
+                    Explorez la majesté de la République Démocratique du Congo, son patrimoine naturel d'exception, ses grands parcs nationaux et la richesse unique de sa biodiversité.
+                </p>
             </div>
-        </section>
-    </main>
+
+            <!-- Les deux boutons d'origine conservés à l'identique -->
+            <div class="hero-btn">
+                <a href="/apropos" class="btn accueil-btn">En savoir plus sur nous</a>
+                <a href="/parcs" class="btn accueil-btn">Visitez</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Présentation & Accueil du site web -->
+    <section class="accueil-presentation">
+        <div class="accueil-presentation-container">
+            <div class="accueil-presentation-image">
+                <img 
+                    src="/assets/Kahuzi Biega National Park_.jpeg" 
+                    alt="Présentation du site Visite Congo" 
+                    loading="lazy" 
+                    onerror="this.onerror=null; this.src='/bgAccueil.jpg';" 
+                />
+            </div>
+            <div class="accueil-presentation-text">
+                <h2>Présentation de Visite Congo</h2>
+                <p>
+                    Visite Congo est votre plateforme d'exploration virtuelle dédiée au patrimoine naturel et écotouristique de la République Démocratique du Congo.
+                </p>
+                <p>
+                    Des volcans actifs du Parc National des Virunga aux vastes forêts tropicales humides de la Salonga, notre mission est de mettre en lumière la biodiversité extraordinaire du bassin du Congo, ses espèces emblématiques et ses parcs nationaux préservés.
+                </p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+/* Style specifique pour la section de presentation de l'accueil */
+.accueil-presentation {
+    width: min(1100px, 90%);
+    margin: 3rem auto var(--space-md);
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.accueil-presentation-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+}
+
+.accueil-presentation-image {
+    flex: 0 1 450px;
+    max-width: 450px;
+    width: 45%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.accueil-presentation-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.accueil-presentation-image:hover img {
+    transform: scale(1.05);
+}
+
+.accueil-presentation-text {
+    flex: 1 1 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.accueil-presentation-text h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--color-dark);
+    font-weight: 700;
+}
+
+.accueil-presentation-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333333;
+    text-align: justify;
+}
+
+@media (max-width: 820px) {
+    .accueil-presentation-container {
+        flex-direction: column;
+    }
+    .accueil-presentation-image {
+        width: 100%;
+        max-width: 100%;
+    }
+    .accueil-presentation-text p {
+        text-align: left;
+    }
+}
+</style>
+
 <%- include('partials/footer') %>

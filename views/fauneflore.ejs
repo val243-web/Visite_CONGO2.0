@@ -1,4 +1,436 @@
 <%- include('partials/header') %>
-<h1 class="big-title">Voir les merveilles de la Republique Démocratique du Congo</h1>
+<link rel="stylesheet" href="/faune-flore.css" />
+
+<main class="ff-page">
+  <!-- Hero Section -->
+  <section class="ff-hero" aria-label="Présentation de la biodiversité">
+    <div class="ff-hero-grid">
+      <div class="ff-hero-content">
+        <div class="ff-hero-badge">
+          <i class="fa-solid fa-leaf"></i> Patrimoine Naturel RDC
+        </div>
+        <h1 class="ff-hero-title">Faune &amp; Flore de la RDC</h1>
+        <p class="ff-hero-subtitle">
+          Découvrez la richesse extraordinaire de la biodiversité congolaise. Des espèces uniques préservées dans leurs habitats naturels.
+        </p>
+        <div class="ff-hero-actions">
+          <a href="#ff-species-grid" class="btn-primary-ff">
+            <i class="fa-solid fa-compass"></i> Explorer les espèces
+          </a>
+          <a href="#ff-news-section" class="btn-outline-ff">
+            <i class="fa-solid fa-newspaper"></i> Découvertes &amp; Articles Officiels
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 Cartes Statistiques -->
+      <div class="ff-hero-stats">
+        <div class="ff-stat-card">
+          <span class="ff-stat-number">400+</span>
+          <span class="ff-stat-label">Mammifères</span>
+        </div>
+        <div class="ff-stat-card">
+          <span class="ff-stat-number">1090+</span>
+          <span class="ff-stat-label">Oiseaux</span>
+        </div>
+        <div class="ff-stat-card">
+          <span class="ff-stat-number">10000+</span>
+          <span class="ff-stat-label">Plantes</span>
+        </div>
+        <div class="ff-stat-card">
+          <span class="ff-stat-number">200+</span>
+          <span class="ff-stat-label">Espèces endémiques</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barre de recherche et filtres -->
+  <section class="ff-search-wrapper" aria-label="Barre de recherche et filtres">
+    <div class="ff-search-main">
+      <div class="ff-input-group">
+        <i class="fa-solid fa-magnifying-glass ff-input-icon"></i>
+        <input
+          type="text"
+          id="ff-search-input"
+          class="ff-search-input"
+          placeholder="Rechercher une espèce (Likweli, Gorille, Okapi...)"
+        />
+      </div>
+
+      <select id="ff-habitat-select" class="ff-select-input" aria-label="Tous les habitats">
+        <option value="">Tous les habitats</option>
+        <option value="Forêt tropicale">Forêt tropicale</option>
+        <option value="Savane">Savane</option>
+        <option value="Zone humide">Zone humide</option>
+        <option value="Montagne">Montagne</option>
+        <option value="Fleuve">Fleuve Congo</option>
+      </select>
+
+      <select id="ff-iucn-select" class="ff-select-input" aria-label="Statut UICN">
+        <option value="">Statut UICN</option>
+        <option value="CR">CR - En danger critique</option>
+        <option value="EN">EN - En danger</option>
+        <option value="VU">VU - Vulnérable</option>
+        <option value="NT">NT - Quasi menacé</option>
+        <option value="LC">LC - Préoccupation mineure</option>
+      </select>
+
+      <button id="ff-toggle-filters" class="btn-filter-toggle" type="button">
+        <i class="fa-solid fa-sliders"></i> Filtres avancés
+      </button>
+
+      <button id="ff-reset-btn" class="btn-reset" type="button">
+        <i class="fa-solid fa-rotate-left"></i> Réinitialiser
+      </button>
+    </div>
+
+    <!-- Filtres avancés dépliables -->
+    <div id="ff-advanced-filters" class="ff-advanced-filters">
+      <label class="ff-filter-checkbox">
+        <input type="checkbox" id="ff-checkbox-endemic" />
+        <span>Espèces strictement endémiques à la RDC</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- Grille des Catégories -->
+  <section class="ff-categories-section">
+    <div class="ff-section-title">
+      <h2>Catégories</h2>
+      <span id="ff-species-count" style="font-size: 0.95rem; color: #666; font-weight: 500;">13 espèces trouvées</span>
+    </div>
+    <div id="ff-categories-grid" class="ff-categories-grid">
+      <!-- Rempli dynamiquement par JS -->
+    </div>
+  </section>
+
+  <!-- Grille des Espèces Populaires -->
+  <section class="ff-species-section">
+    <div style="margin-bottom: 1.5rem;">
+      <h2 style="font-size: 1.8rem; font-weight: 700;">Espèces Populaires &amp; Nouveautés</h2>
+      <p style="color: #666; font-size: 0.95rem;">Cliquez sur une fiche pour consulter les détails complets, incluant le nouveau Likweli (2026).</p>
+    </div>
+
+    <div id="ff-species-grid" class="ff-species-grid">
+      <!-- Rempli dynamiquement par JS -->
+    </div>
+  </section>
+
+  <!-- Section Actualités & Découvertes Scientifiques (2010 - 2026) avec Liens Officiels -->
+  <section id="ff-news-section" class="ff-news-wrapper">
+    <div class="ff-section-title">
+      <div>
+        <span class="ff-map-tag"><i class="fa-solid fa-newspaper"></i> Recherches &amp; Publications (2010 - 2026)</span>
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-top: 0.3rem;">Actualités de la Biodiversité en RDC</h2>
+      </div>
+    </div>
+
+    <!-- Carte Vedette : Découverte du Likweli -->
+    <article class="ff-news-spotlight">
+      <div class="ff-spotlight-img-wrap">
+        <img src="https://imgs.mongabay.com/wp-content/uploads/sites/20/2026/07/15100245/JP-Kapale-Lukuru-Foundation-small-2048x1536.jpg" alt="Likweli Colobus congoensis" class="ff-spotlight-img" />
+        <span class="ff-spotlight-badge"><i class="fa-solid fa-star"></i> Découverte 2026</span>
+      </div>
+
+      <div class="ff-spotlight-content">
+        <span class="ff-news-date"><i class="fa-solid fa-calendar-day"></i> Juillet 2026 • Parc National de la Lomami</span>
+        <h3 class="ff-spotlight-title">Le Likweli (Colobus congoensis) : Nouvelle espèce de primate identifiée en RDC</h3>
+        <p class="ff-spotlight-text">
+          En juillet 2026, la communauté scientifique internationale a officialisé la découverte du <strong>Likweli</strong> (<em>Colobus congoensis</em>), un singe colobe au pelage noir dense et aux contours de lèvres ornés d'une teinte orangée à crème. Il s'agit seulement de la 5ème nouvelle espèce de primate identifiée sur le continent africain au cours des 75 dernières années.
+        </p>
+
+        <div class="ff-spotlight-actions">
+          <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0349857" target="_blank" rel="noopener noreferrer" class="btn-news-official">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Lire l'article scientifique dans PLOS ONE
+          </a>
+          <a href="https://news.mongabay.com/2026/07/new-monkey-species-likweli-described-in-drc/" target="_blank" rel="noopener noreferrer" class="btn-news-source">
+            <i class="fa-solid fa-newspaper"></i> Article Mongabay
+          </a>
+        </div>
+
+        <div class="ff-spotlight-tags">
+          <span class="tag">Endémique RDC</span>
+          <span class="tag">Parc de la Lomami</span>
+          <span class="tag">Colobus congoensis</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Grille des autres actualités majeures (2010-2025) avec liens officiels -->
+    <div class="ff-news-grid">
+      <article class="ff-news-card">
+        <div class="ff-news-card-media">
+          <img src="/assets/hero_gorilla.jpg" alt="Virunga 100 ans" />
+          <span class="ff-news-pill">Avril 2025</span>
+        </div>
+        <div class="ff-news-card-body">
+          <h4 class="ff-news-card-title">Virunga fête 100 ans de conservation d'exception</h4>
+          <p class="ff-news-card-excerpt">Créé en 1925, le plus ancien parc national d'Afrique célèbre un siècle de résistance et de protection des gorilles de montagne.</p>
+          <a href="https://virunga.org/news/virunga-national-park-100-years/" target="_blank" rel="noopener noreferrer" class="ff-news-link">
+            Lire le communiqué officiel <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="ff-news-card">
+        <div class="ff-news-card-media">
+          <img src="/salonga.jpg" alt="Parc de la Salonga" />
+          <span class="ff-news-pill">2021 - 2023</span>
+        </div>
+        <div class="ff-news-card-body">
+          <h4 class="ff-news-card-title">Salonga retiré de la liste du patrimoine en péril</h4>
+          <p class="ff-news-card-excerpt">L'UNESCO salue les progrès de la RDC pour la protection des bonobos et des éléphants de forêt dans la cuvette centrale.</p>
+          <a href="https://whc.unesco.org/en/news/2314" target="_blank" rel="noopener noreferrer" class="ff-news-link">
+            Consulter l'annonce de l'UNESCO <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </article>
+
+      <article class="ff-news-card">
+        <div class="ff-news-card-media">
+          <img src="/assets/Kahuzi Biega National Park_.jpeg" alt="Parc de la Lomami" />
+          <span class="ff-news-pill">2016</span>
+        </div>
+        <div class="ff-news-card-body">
+          <h4 class="ff-news-card-title">Création officielle du Parc National de la Lomami</h4>
+          <p class="ff-news-card-excerpt">Créé pour abriter le Lesula (décrit en 2012) et préfigurer le sanctuaire du Likweli au cœur de la forêt équatoriale.</p>
+          <a href="https://news.mongabay.com/2016/10/drc-declares-new-national-park-to-protect-bonobos-and-lesula-monkeys/" target="_blank" rel="noopener noreferrer" class="ff-news-link">
+            Lire l'article de création <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Section Carte SVG Réaliste et Parcs associés -->
+  <section id="ff-map-section" class="ff-map-parks-section">
+    <div class="ff-map-header-bar">
+      <div>
+        <span class="ff-map-tag"><i class="fa-solid fa-earth-africa"></i> Cartographie Officielle</span>
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin-top: 0.3rem;">Carte de Répartition de la Biodiversité</h2>
+        <p style="color: #555; font-size: 0.95rem; margin-top: 0.2rem;">
+          Distribution géographique en RDC pour l'espèce sélectionnée : <strong id="ff-active-species-map-name" style="color: #2e7d32;">Likweli (Colobe de la Lomami)</strong>
+        </p>
+      </div>
+
+      <div class="ff-map-quick-stats">
+        <div class="ff-map-stat-badge">
+          <span class="num">26</span>
+          <span class="txt">Provinces</span>
+        </div>
+        <div class="ff-map-stat-badge">
+          <span class="num">9</span>
+          <span class="txt">Parcs Nationaux</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ff-map-parks-grid">
+      <!-- Carte SVG Réaliste de la RDC -->
+      <div class="ff-map-container">
+        <div id="ff-province-tooltip" class="ff-province-tooltip">
+          <span id="ff-tooltip-title" class="title">Province</span>
+          <span id="ff-tooltip-status" class="status">Statut de présence</span>
+        </div>
+
+        <svg
+          class="ff-svg-map"
+          viewBox="0 0 1000 960"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Carte vectorielle détaillée et réaliste des 26 provinces de la République Démocratique du Congo"
+        >
+          <defs>
+            <filter id="map-drop-shadow" x="-10%" y="-10%" width="130%" height="130%">
+              <feDropShadow dx="3" dy="6" stdDeviation="8" flood-color="#142c14" flood-opacity="0.18" />
+            </filter>
+            <linearGradient id="activeProvinceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#388e3c" />
+              <stop offset="100%" stop-color="#1b5e20" />
+            </linearGradient>
+          </defs>
+
+          <g id="provinces-rdc" filter="url(#map-drop-shadow)">
+            <path data-province="Kongo-Central" class="ff-province-path" d="M 50 510 C 70 490 100 480 120 480 C 140 490 160 500 170 510 C 180 530 185 540 180 555 C 165 575 140 590 120 590 C 85 590 60 570 30 540 Z" />
+            <text x="95" y="540" class="ff-province-label">Kongo-Central</text>
+
+            <circle data-province="Kinshasa" cx="185" cy="495" r="16" class="ff-province-path" />
+            <text x="185" y="472" class="ff-province-label" style="font-weight: 800;">Kinshasa</text>
+
+            <path data-province="Kwango" class="ff-province-path" d="M 170 540 C 190 540 210 590 220 640 C 230 680 260 710 280 730 C 230 740 190 730 160 710 C 150 640 160 580 170 540 Z" />
+            <text x="210" y="660" class="ff-province-label">Kwango</text>
+
+            <path data-province="Kwilu" class="ff-province-path" d="M 200 520 C 240 525 260 530 280 540 C 300 570 320 600 330 630 C 285 640 245 640 220 640 C 210 590 205 550 200 520 Z" />
+            <text x="260" y="585" class="ff-province-label">Kwilu</text>
+
+            <path data-province="Mai-Ndombe" class="ff-province-path" d="M 210 380 C 260 375 290 370 320 370 C 330 405 335 435 340 460 C 310 500 295 520 280 540 C 245 530 225 525 200 520 C 205 470 208 420 210 380 Z" />
+            <text x="260" y="445" class="ff-province-label">Mai-Ndombe</text>
+
+            <path data-province="Sud-Ubangi" class="ff-province-path" d="M 210 140 C 240 130 270 125 290 120 C 285 160 282 195 280 230 C 245 235 220 238 200 240 C 195 210 192 180 190 180 Z" />
+            <text x="235" y="185" class="ff-province-label">Sud-Ubangi</text>
+
+            <path data-province="Nord-Ubangi" class="ff-province-path" d="M 290 120 C 340 110 380 105 410 100 C 405 140 402 170 400 200 C 350 215 315 222 280 230 Z" />
+            <text x="345" y="160" class="ff-province-label">Nord-Ubangi</text>
+
+            <path data-province="Équateur" class="ff-province-path" d="M 200 240 C 240 235 260 232 280 230 C 300 280 310 330 320 370 C 275 375 240 378 210 380 C 198 350 194 310 190 310 Z" />
+            <text x="250" y="305" class="ff-province-label">Équateur</text>
+
+            <path data-province="Mongala" class="ff-province-path" d="M 410 100 C 450 105 480 108 510 110 C 505 150 502 185 500 220 C 455 212 425 206 400 200 Z" />
+            <text x="450" y="160" class="ff-province-label">Mongala</text>
+
+            <path data-province="Bas-Uele" class="ff-province-path" d="M 510 110 C 580 105 630 102 680 100 C 675 140 672 175 670 210 C 590 215 540 218 500 220 Z" />
+            <text x="585" y="155" class="ff-province-label">Bas-Uele</text>
+
+            <path data-province="Haut-Uele" class="ff-province-path" d="M 680 100 C 750 95 810 92 870 90 C 865 135 862 175 860 210 C 785 210 725 210 670 210 Z" />
+            <text x="765" y="150" class="ff-province-label">Haut-Uele</text>
+
+            <path data-province="Ituri" class="ff-province-path" d="M 860 210 C 890 215 910 218 920 220 C 925 260 928 295 930 330 C 880 335 845 338 820 340 C 800 300 790 260 780 240 Z" />
+            <text x="860" y="275" class="ff-province-label">Ituri</text>
+
+            <path data-province="Tshopo" class="ff-province-path" d="M 500 220 C 600 225 700 232 780 240 C 800 280 810 310 820 340 C 720 370 660 385 620 400 C 570 370 545 355 520 340 C 510 295 505 255 500 220 Z" />
+            <text x="640" y="305" class="ff-province-label">Tshopo</text>
+
+            <path data-province="Tshuapa" class="ff-province-path" d="M 320 370 C 400 358 460 348 520 340 C 560 365 590 385 620 400 C 570 435 530 460 500 480 C 430 472 380 466 340 460 Z" />
+            <text x="460" y="415" class="ff-province-label">Tshuapa</text>
+
+            <path data-province="Sankuru" class="ff-province-path" d="M 500 480 C 560 472 610 465 650 460 C 642 505 636 540 630 570 C 560 565 505 562 460 560 Z" />
+            <text x="550" y="515" class="ff-province-label">Sankuru</text>
+
+            <path data-province="Kasaï" class="ff-province-path" d="M 340 460 C 390 465 430 468 460 470 C 452 525 446 565 440 600 C 390 612 355 622 330 630 Z" />
+            <text x="390" y="535" class="ff-province-label">Kasaï</text>
+
+            <path data-province="Kasaï Central" class="ff-province-path" d="M 440 600 C 475 595 505 592 530 590 C 522 635 516 670 510 700 C 465 700 435 700 410 700 Z" />
+            <text x="470" y="645" class="ff-province-label">Kasaï Central</text>
+
+            <path data-province="Kasaï Oriental" class="ff-province-path" d="M 530 590 C 560 585 580 582 600 580 C 592 618 586 648 580 670 C 550 682 530 692 510 700 Z" />
+            <text x="555" y="635" class="ff-province-label" style="font-size: 11px;">Kasaï Or.</text>
+
+            <path data-province="Lomami" class="ff-province-path" d="M 600 580 C 635 575 660 572 680 570 C 672 620 666 660 660 690 C 625 682 600 675 580 670 Z" />
+            <text x="630" y="630" class="ff-province-label">Lomami</text>
+
+            <path data-province="Maniema" class="ff-province-path" d="M 620 400 C 680 392 720 385 760 380 C 768 450 774 505 780 550 C 725 554 685 557 650 560 Z" />
+            <text x="700" y="470" class="ff-province-label">Maniema</text>
+
+            <path data-province="Nord-Kivu" class="ff-province-path" d="M 820 340 C 875 335 905 332 930 330 C 938 375 944 410 950 440 C 910 445 880 448 860 450 Z" />
+            <text x="880" y="385" class="ff-province-label">Nord-Kivu</text>
+
+            <path data-province="Sud-Kivu" class="ff-province-path" d="M 860 450 C 900 445 930 442 950 440 C 958 490 964 530 970 560 C 925 564 890 567 860 570 Z" />
+            <text x="905" y="505" class="ff-province-label">Sud-Kivu</text>
+
+            <path data-province="Tanganyika" class="ff-province-path" d="M 780 550 C 815 555 840 560 860 570 C 900 566 935 563 960 560 C 940 635 925 690 910 730 C 840 722 790 716 750 710 Z" />
+            <text x="840" y="640" class="ff-province-label">Tanganyika</text>
+
+            <path data-province="Haut-Lomami" class="ff-province-path" d="M 660 690 C 700 698 730 704 750 710 C 735 755 722 790 710 820 C 660 812 625 806 600 800 Z" />
+            <text x="670" y="755" class="ff-province-label">Haut-Lomami</text>
+
+            <path data-province="Lualaba" class="ff-province-path" d="M 410 700 C 500 740 550 770 600 800 C 620 845 635 880 650 910 C 550 902 480 895 430 890 Z" />
+            <text x="510" y="810" class="ff-province-label">Lualaba</text>
+
+            <path data-province="Haut-Katanga" class="ff-province-path" d="M 710 820 C 795 780 855 755 910 730 C 935 780 955 820 970 850 C 890 888 835 915 780 940 Z" />
+            <text x="830" y="845" class="ff-province-label">Haut-Katanga</text>
+          </g>
+
+          <g id="hydrographie-rdc" pointer-events="none">
+            <path d="M 710 820 Q 640 400 360 210 T 170 510" fill="none" stroke="#0288d1" stroke-width="5" stroke-linecap="round" opacity="0.8" />
+            <path d="M 710 820 Q 640 400 360 210 T 170 510" fill="none" stroke="#e0f7fa" stroke-width="1.8" stroke-linecap="round" opacity="0.9" />
+
+            <path d="M 955 450 C 970 530 965 650 915 725 C 905 725 915 630 940 520 Z" fill="#0288d1" opacity="0.85" />
+            <ellipse cx="945" cy="425" rx="14" ry="20" fill="#0288d1" opacity="0.85" />
+            <ellipse cx="925" cy="335" rx="12" ry="16" fill="#0288d1" opacity="0.85" />
+            <ellipse cx="915" cy="225" rx="10" ry="22" fill="#0288d1" opacity="0.85" />
+            <ellipse cx="270" cy="410" rx="18" ry="28" fill="#0288d1" opacity="0.85" />
+          </g>
+        </svg>
+
+        <div class="ff-map-legend">
+          <div class="ff-legend-item">
+            <div class="ff-legend-box" style="background: linear-gradient(135deg, #388e3c, #1b5e20);"></div>
+            <span>Présence de l'espèce</span>
+          </div>
+          <div class="ff-legend-item">
+            <div class="ff-legend-box" style="background: #e2e8e0; border: 1px solid #b0bec5;"></div>
+            <span>Autre province RDC</span>
+          </div>
+          <div class="ff-legend-item">
+            <div class="ff-legend-box" style="background: #0288d1;"></div>
+            <span>Fleuve Congo &amp; Grands Lacs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des parcs observés -->
+      <div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: var(--color-dark);">
+          <i class="fa-solid fa-tree-city" style="color: #2e7d32; margin-right: 0.4rem;"></i> Parcs &amp; Sanctuaires Observés
+        </h3>
+        <div id="ff-parks-list" class="ff-parks-list">
+          <!-- Injecté par JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modale / Panneau de détail complet -->
+  <dialog id="ff-detail-dialog" class="ff-dialog">
+    <div class="ff-dialog-container">
+      <button id="ff-dialog-close" class="ff-dialog-close" type="button" aria-label="Fermer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="ff-dialog-header-banner">
+        <img id="ff-dialog-img" class="ff-dialog-banner-img" src="" alt="" />
+        <div class="ff-dialog-banner-overlay">
+          <span id="ff-dialog-iucn-badge" class="badge-iucn"></span>
+          <h2 id="ff-dialog-title" class="ff-dialog-title"></h2>
+          <span id="ff-dialog-scientific" class="ff-dialog-scientific"></span>
+        </div>
+      </div>
+
+      <div class="ff-dialog-body">
+        <!-- 4 mini cartes de données -->
+        <div class="ff-info-cards-grid">
+          <div class="ff-info-mini-card">
+            <span class="label">Poids</span>
+            <span id="ff-dialog-weight" class="value"></span>
+          </div>
+          <div class="ff-info-mini-card">
+            <span class="label">Longévité</span>
+            <span id="ff-dialog-longevity" class="value"></span>
+          </div>
+          <div class="ff-info-mini-card">
+            <span class="label">Régime</span>
+            <span id="ff-dialog-diet" class="value"></span>
+          </div>
+          <div class="ff-info-mini-card">
+            <span class="label">Activité</span>
+            <span id="ff-dialog-activity" class="value"></span>
+          </div>
+        </div>
+
+        <!-- Onglets -->
+        <div class="ff-tabs-nav">
+          <button class="ff-tab-btn active" data-tab="desc" type="button">Description</button>
+          <button class="ff-tab-btn" data-tab="habitat" type="button">Habitat</button>
+          <button class="ff-tab-btn" data-tab="diet" type="button">Alimentation</button>
+          <button class="ff-tab-btn" data-tab="distribution" type="button">Répartition</button>
+          <button class="ff-tab-btn" data-tab="status" type="button">Statut &amp; Menaces</button>
+          <button class="ff-tab-btn" data-tab="parks" type="button">Parcs présents</button>
+        </div>
+
+        <!-- Contenu des onglets -->
+        <div id="ff-tab-desc" class="ff-tab-content active"></div>
+        <div id="ff-tab-habitat" class="ff-tab-content"></div>
+        <div id="ff-tab-diet" class="ff-tab-content"></div>
+        <div id="ff-tab-distribution" class="ff-tab-content"></div>
+        <div id="ff-tab-status" class="ff-tab-content"></div>
+        <div id="ff-tab-parks" class="ff-tab-content"></div>
+      </div>
+    </div>
+  </dialog>
+</main>
+
+<script src="/parcsData.js"></script>
+<script src="/fauneFloreData.js"></script>
+<script src="/faune-flore.js"></script>
 
 <%- include('partials/footer') %>
