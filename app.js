@@ -49,6 +49,10 @@ app.get("/parcs", (req, res) => {
   res.render("parcs", { pageTitle: "parcs", listeParcsRDC });
 });
 
+app.get("/fauneflore", (req, res) => {
+  res.render("fauneflore", { pageTitle: "fauneflore" });
+});
+
 app.get("/contacts", (req, res) => {
   renderContactPage(res);
 });
