@@ -1,23 +1,179 @@
 <%- include('partials/header') %>
-<main>
-    <!-- Titre principal de la page A propos. -->
-    <h1 class="big-title">En savoir plus sur nous</h1>
+<main class="apropos-page-wrapper">
+    <!-- En-tête de la page A Propos -->
+    <section class="apropos-hero">
+        <h1 class="big-title">En savoir plus sur nous</h1>
+        <p class="apropos-hero-sub">
+            Promouvoir la richesse de la biodiversité congolaise et sensibiliser à la préservation de son patrimoine naturel d'exception.
+        </p>
+    </section>
 
-    <!-- Bloc principal : image de presentation et texte explicatif. -->
-    <div class="apropos-container">
+    <!-- Bloc principal : image de présentation et texte explicatif -->
+    <section class="apropos-container">
         <div class="apropos-image">
-            <img src="icon.jpeg" alt="Visite congo" class="apropos-img" />
+            <img src="/vcongo.png" alt="Visite Congo" class="apropos-img" onerror="this.onerror=null; this.src='/icon.jpeg';" />
         </div>
 
         <div class="apropos-text">
-            <h2>En savoir plus sur nous</h2>
+            <h2>À Propos de Visite Congo</h2>
 
-            <p>Visite congo est un site web éducatif et touristique dédié à la découverte de la faune et flore République démocratique du Congo.</p>
-            <p>Créé en vue de notre projet tutoré de première année et font le but est de promouvoir la conservation de la biodiversité congolaise et de sensibiliser le public à l'importance de protéger cet écosystème unique.</p>
-            <p>Et c'est pour celà qu'avec visite congo vous allez decouvrir la richesse naturelle de la République démocratique du Congo.</p>
+            <p>
+                <strong>Visite Congo</strong> est une plateforme web éducative et touristique entièrement dédiée à la découverte de la faune, de la flore et des parcs nationaux de la République Démocratique du Congo.
+            </p>
+            <p>
+                Conçu dans le cadre de notre projet tutoré de première année, ce site a pour vocation majeure de promouvoir la conservation de la biodiversité congolaise et de sensibiliser le grand public à l'urgence environnementale d'un des plus grands poumons verts de la planète.
+            </p>
+            <p>
+                À travers nos guides, cartes interactives et fiches explicatives, nous vous invitons à plonger au cœur des sanctuaires naturels et des espèces uniques de la RDC.
+            </p>
 
-            <q><strong> Savoir proteger sa terre et ses richesses c'est aussi proteger son avenir </strong></q>
+            <blockquote class="apropos-quote">
+                <i class="fa-solid fa-quote-left"></i>
+                <span>Savoir protéger sa terre et ses richesses, c'est aussi protéger son avenir.</span>
+            </blockquote>
         </div>
-    </div>
+    </section>
+
+    <!-- Cartes des piliers de notre mission -->
+    <section class="apropos-pillars">
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3>Éducation &amp; Sensibilisation</h3>
+            <p>Faire connaître la beauté et la fragilité des espèces congolaises pour développer une conscience écologique forte.</p>
+        </div>
+
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-tree"></i></div>
+            <h3>Valorisation du Patrimoine</h3>
+            <p>Mettre en lumière les 9 grands parcs nationaux et la biodiversité de la RDC pour encourager l'écotourisme responsable.</p>
+        </div>
+
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Conservation Durable</h3>
+            <p>Soutenir les efforts de sauvegarde des espèces menacées et endémiques comme l'Okapi, le Bonobo et le Gorille.</p>
+        </div>
+    </section>
 </main>
+
+<style>
+/* Styles specifiques pour la page A Propos */
+.apropos-page-wrapper {
+    width: 90%;
+    max-width: 1150px;
+    margin: var(--space-md) auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.apropos-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem 0;
+}
+
+.apropos-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(46, 125, 50, 0.2);
+}
+
+.apropos-hero-sub {
+    font-size: 1.1rem;
+    color: #555555;
+    max-width: 700px;
+    line-height: 1.6;
+}
+
+.apropos-quote {
+    background: #f4f7f4;
+    border-left: 4px solid #2e7d32;
+    padding: 1.2rem 1.5rem;
+    border-radius: var(--radius-md);
+    margin-top: 0.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    font-style: italic;
+    color: var(--color-dark);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.apropos-quote i {
+    font-size: 1.4rem;
+    color: #2e7d32;
+    margin-top: 0.2rem;
+}
+
+.apropos-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.pillar-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pillar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+    border-color: #2e7d32;
+}
+
+.pillar-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    color: #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+}
+
+.pillar-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.pillar-card p {
+    font-size: 0.92rem;
+    color: #555555;
+    line-height: 1.55;
+}
+
+@media (max-width: 820px) {
+    .apropos-pillars {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
 <%- include('partials/footer') %>

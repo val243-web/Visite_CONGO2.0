@@ -1,9 +1,16 @@
 /**
  * Composant SpeciesCard pour la page Faune & Flore
- * Génère le balisage HTML d'une carte d'espèce avec image, badges, favori, hover et bouton d'action.
+ * Génère le balisage HTML d'une carte d'espèce avec image, badges, favori, hover,
+ * bouton de fiche détaillée ET option redirigeant vers l'article scientifique / source officielle complet.
  */
 
 function renderSpeciesCard(sp, isFavorite = false) {
+  const articleLink = sp.articleUrl ? `
+    <a class="btn-card-article" href="${sp.articleUrl}" target="_blank" rel="noopener noreferrer" title="Consulter l'article d'origine sur ${sp.articleSource || 'Source scientifique'}" onclick="event.stopPropagation();">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Article &amp; Source
+    </a>
+  ` : '';
+
   return `
     <article class="ff-species-card" data-species-id="${sp.id}">
       <div class="ff-card-media">
@@ -11,6 +18,7 @@ function renderSpeciesCard(sp, isFavorite = false) {
         <div class="ff-card-badges">
           <span class="badge-category">${sp.categorie}</span>
           <span class="badge-iucn iucn-${sp.statutUICN}">${sp.statutUICN}</span>
+          ${sp.endemiqueRDC ? '<span class="badge-endemic"><i class="fa-solid fa-certificate"></i> Endémique RDC</span>' : ''}
         </div>
         <button class="btn-favorite ${isFavorite ? "active" : ""}" type="button" data-species-id="${sp.id}" aria-label="Favori">
           <i class="fa-${isFavorite ? "solid" : "regular"} fa-heart"></i>
@@ -26,9 +34,12 @@ function renderSpeciesCard(sp, isFavorite = false) {
           <span class="ff-card-habitat">
             <i class="fa-solid fa-tree"></i> ${sp.habitat}
           </span>
-          <button class="btn-detail" type="button" data-species-id="${sp.id}">
-            Consulter la fiche
-          </button>
+          <div class="ff-card-buttons">
+            <button class="btn-detail" type="button" data-species-id="${sp.id}">
+              Consulter la fiche
+            </button>
+            ${articleLink}
+          </div>
         </div>
       </div>
     </article>
