@@ -17,7 +17,7 @@ const FAUNE_FLORE_SPECIES = [
     activite: "Diurne",
     endemiqueRDC: true,
     nouveau2026: true,
-    image: "https://images.unsplash.com/photo-1540573137025-54641e72e128?auto=format&fit=crop&w=800&q=80",
+    image: "https://imgs.mongabay.com/wp-content/uploads/sites/20/2026/07/15100245/JP-Kapale-Lukuru-Foundation-small-2048x1536.jpg",
     description: "Primate d'Afrique centrale officiellement décrit en juillet 2026 dans la revue PLOS ONE. Le Likweli est un colobe au pelage sombre remarquable par une tache de peau nue orangée à crème autour des lèvres et du museau, ainsi qu'un toupet anal blanc pur.",
     habitatDetails: "Restreint à environ 1 700 km² de forêt tropicale humide de plaine entre les rivières Lomami et Lilo, au cœur du Parc National de la Lomami.",
     alimentation: "Feuilles tendres de la canopée, graines, fruits mûrs et fleurs forestières.",
