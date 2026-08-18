@@ -35,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const dialogTitle = document.querySelector("#ff-dialog-title");
   const dialogScientific = document.querySelector("#ff-dialog-scientific");
   const dialogIUCNBadge = document.querySelector("#ff-dialog-iucn-badge");
+  const dialogArticleLink = document.querySelector("#ff-dialog-article-link");
+  const dialogArticleSource = document.querySelector("#ff-dialog-article-source");
   const dialogWeight = document.querySelector("#ff-dialog-weight");
   const dialogLongevity = document.querySelector("#ff-dialog-longevity");
   const dialogDiet = document.querySelector("#ff-dialog-diet");
@@ -208,6 +210,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (dialogIUCNBadge) {
       dialogIUCNBadge.textContent = sp.statutLabel;
       dialogIUCNBadge.className = `badge-iucn iucn-${sp.statutUICN}`;
+    }
+
+    if (dialogArticleLink && dialogArticleSource) {
+      if (sp.articleUrl) {
+        dialogArticleLink.href = sp.articleUrl;
+        dialogArticleSource.textContent = sp.articleSource || "Article & Source Officielle";
+        dialogArticleLink.style.display = "inline-flex";
+      } else {
+        dialogArticleLink.style.display = "none";
+      }
     }
 
     if (dialogWeight) dialogWeight.textContent = sp.poids;

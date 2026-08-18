@@ -64,21 +64,23 @@ header {
     box-shadow: 0 0 var(--space-sm) var(--color-shadow);
     transition: var(--transition-base);
     position: sticky;
-    top: 1px;
-    z-index: 10;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
     /* Logo texte avec contraste fort pour rester visible sur le header clair. */
     text-decoration: none;
-    font-size: 2rem;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
     font-weight: bold;
     background-color: var(--color-dark);
     color: var(--color-light);
     border-radius: var(--radius-md);
-    padding-left: 1rem;
+    padding-left: 0.8rem;
     transition : var(--transition-base);
     cursor : pointer;
+    display: inline-flex;
+    align-items: center;
 }
 .logo span {
     background-color: var(--color-light);
@@ -695,7 +697,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
+    position: static;
 }
 
 @media (max-width: 820px) {
@@ -858,32 +860,85 @@ footer {
 }
 
 @media (max-width: 520px) {
-    /* Ajustements pour les petits telephones. */
+    /* Ajustements pour les telephones */
     .logo {
-        font-size: 1.45rem;
+        font-size: 1.35rem;
     }
 
     .big-title {
-        font-size: 1.8rem;
-        margin: 0.5rem 1rem;
+        font-size: clamp(1.4rem, 4.5vw, 1.8rem);
+        margin: 0.5rem 0.5rem;
     }
 
     .hero {
-        margin: var(--space-md);
+        margin: var(--space-md) auto;
+        width: 94%;
     }
 
     .hero-btn {
         flex-direction: column;
+        width: 100%;
+    }
+
+    .parks-page {
+        margin: var(--space-md) auto;
+        width: 94%;
     }
 
     .parks-grid {
-        /* Une seule carte par ligne sur mobile. */
+        /* Une seule carte par ligne sur mobile */
         grid-template-columns: 1fr;
     }
 
     .park-card-footer {
         align-items: stretch;
         flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .park-dialog {
+        width: calc(100% - 1rem);
+        margin: 1rem auto;
+    }
+
+    .park-dialog-body {
+        padding: 1.2rem 1rem;
+        gap: 0.8rem;
+    }
+
+    .park-dialog-body h2 {
+        font-size: 1.4rem;
+    }
+
+    .contact-page {
+        margin: var(--space-md) auto;
+        width: 94%;
+        padding: 1rem 0.6rem;
+    }
+
+    .contact-submit {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .galerie {
+        margin: var(--space-md) auto;
+        width: 94%;
+    }
+
+    .galerieimages {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+    }
+
+    .galerieimages img {
+        height: 140px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo {
+        font-size: 1.2rem;
     }
 
     .galerieimages {
